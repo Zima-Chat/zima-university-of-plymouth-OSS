@@ -1,0 +1,9 @@
+[submodule "vendor/src/libsodium"]
+	path = vendor/src/libsodium
+	url = https://github.com/jedisct1/libsodium.git
+[submodule "vendor/src/openssl"]
+	path = vendor/src/openssl
+	url = https://github.com/openssl/openssl.git
+[submodule "vendor/src/curl"]
+	path = vendor/src/curl
+	url = https://github.com/curl/curl.git

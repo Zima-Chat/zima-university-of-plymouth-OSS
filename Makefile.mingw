@@ -1,0 +1,162 @@
+# Makefile.mingw -- cross-compile Zima for Windows from Linux/macOS.
+#
+# Usage:
+#   make -f Makefile.mingw                              # uses /opt/winroot
+#   make -f Makefile.mingw MINGW_SYSROOT=/path/to/root  # override
+#   make -f Makefile.mingw clean
+#
+# Requirements:
+#   - mingw-w64 GCC: apt install g++-mingw-w64-x86-64 mingw-w64-tools
+#   - A sysroot at $(MINGW_SYSROOT) containing cross-built:
+#       * libsodium     (lib/libsodium.a, lib/pkgconfig/libsodium.pc)
+#       * OpenSSL       (lib/libssl.a, lib/libcrypto.a, lib/pkgconfig/*.pc)
+#       * libcurl       (lib/libcurl.a, lib/pkgconfig/libcurl.pc)
+#       * CA bundle     (ssl/cacert.pem) -- optional but recommended
+
+# ---------- Toolchain ----------
+MINGW_TRIPLE  ?= x86_64-w64-mingw32
+MINGW_SYSROOT ?= /opt/winroot
+
+CXX := $(MINGW_TRIPLE)-g++
+AR  := $(MINGW_TRIPLE)-ar
+STRIP := $(MINGW_TRIPLE)-strip
+
+# ---------- pkg-config wrapper ----------
+# Force pkg-config to look ONLY in the sysroot. PKG_CONFIG_LIBDIR replaces
+# the default system search path entirely; PKG_CONFIG_PATH is cleared so
+# nothing from the host environment leaks in. --define-prefix makes the
+# .pc files relocatable based on their physical location.
+PC_ENV := PKG_CONFIG_LIBDIR=$(MINGW_SYSROOT)/lib/pkgconfig \
+          PKG_CONFIG_PATH= \
+          PKG_CONFIG_SYSROOT_DIR=$(MINGW_SYSROOT)
+
+# Resolve each library's flags at parse time so we fail fast if pkg-config
+# can't find something, rather than silently producing broken builds.
+SODIUM_CFLAGS := $(shell $(PC_ENV) pkg-config --define-prefix --cflags libsodium)
+SODIUM_LIBS   := $(shell $(PC_ENV) pkg-config --define-prefix --libs   libsodium)
+
+CURL_CFLAGS   := $(shell $(PC_ENV) pkg-config --define-prefix --cflags libcurl)
+# --static so all transitive Win32 deps (ssl, crypto, ws2_32, crypt32,
+# bcrypt, iphlpapi, advapi32, gdi32) get pulled into the link line.
+CURL_LIBS     := $(shell $(PC_ENV) pkg-config --define-prefix --libs --static libcurl)
+
+# Fail loudly if pkg-config didn't find something.
+ifeq ($(strip $(SODIUM_CFLAGS)),)
+  $(error pkg-config could not find libsodium in $(MINGW_SYSROOT)/lib/pkgconfig. \
+          Check that libsodium.pc exists there.)
+endif
+ifeq ($(strip $(CURL_CFLAGS)),)
+  $(error pkg-config could not find libcurl in $(MINGW_SYSROOT)/lib/pkgconfig. \
+          Check that libcurl.pc exists there.)
+endif
+
+# ---------- Compiler flags ----------
+STD      := -std=c++20
+WARN     := -Wall -Wextra -Wpedantic
+INCLUDES := -I.
+
+# Security: subset of GCC hardening that applies to PE/COFF targets.
+#   -fPIE/-pie are no-ops on Windows; ASLR is enabled via linker flags.
+#   -fcf-protection is x86/ELF only; omitted.
+SEC_FLAGS := -O2 \
+             -fstack-protector-strong \
+             -fstack-clash-protection \
+             -D_FORTIFY_SOURCE=2
+
+WIN_DEFINES := -D_WIN32_WINNT=0x0A00 \
+               -DWIN32_LEAN_AND_MEAN \
+               -DNOMINMAX
+
+CXXFLAGS := $(STD) $(WARN) $(INCLUDES) $(SEC_FLAGS) $(WIN_DEFINES) \
+            $(SODIUM_CFLAGS) $(CURL_CFLAGS)
+
+# ---------- Linker flags ----------
+# PE hardening:
+#   --dynamicbase     -- ASLR
+#   --nxcompat        -- DEP / NX
+#   --high-entropy-va -- 64-bit ASLR
+#   --guard-cf        -- Control Flow Guard (requires recent binutils)
+# Remove --guard-cf if your binutils is too old (errors at link time).
+ENABLE_GUARD_CF ?= 0
+
+LDFLAGS := -static-libgcc -static-libstdc++ \
+           -Wl,--dynamicbase \
+           -Wl,--nxcompat \
+           -Wl,--high-entropy-va
+
+ifeq ($(ENABLE_GUARD_CF),1)
+  LDFLAGS += -Wl,--guard-cf
+endif
+
+# Win32 libs that the platform/windows/*.cpp sources need directly.
+# (libcurl's transitive deps are already in $(CURL_LIBS) from --static.)
+WIN_LIBS := -ladvapi32 -lcrypt32 -lbcrypt -lws2_32 -luserenv
+
+# ---------- Sources ----------
+PLATFORM_AGENT_SRCS := platform/windows/hardening_win.cpp \
+                       platform/windows/secret_store_credman.cpp \
+                       platform/windows/ipc_pipe.cpp
+
+PLATFORM_CLI_SRCS   := platform/windows/ipc_pipe.cpp
+
+AGENT_SRCS := agent/main.cpp \
+              agent/session.cpp \
+              agent/rpc.cpp \
+              agent/zima_client.cpp \
+              agent/prompt_scanner.cpp \
+              $(PLATFORM_AGENT_SRCS)
+
+CLI_SRCS := cli/main.cpp \
+            cli/terminal_input.cpp \
+            agent/rpc.cpp \
+            agent/session.cpp \
+            $(PLATFORM_CLI_SRCS)
+
+# Object files: keep them in a separate build dir so they don't collide
+# with a host Linux build's .o files. This is the #1 cause of "I rebuilt
+# but it still doesn't work" -- mixing ELF and PE objects.
+BUILDDIR   := build/mingw
+AGENT_OBJS := $(addprefix $(BUILDDIR)/,$(AGENT_SRCS:.cpp=.o))
+CLI_OBJS   := $(addprefix $(BUILDDIR)/,$(CLI_SRCS:.cpp=.o))
+
+# ---------- Targets ----------
+AGENT_BIN := zima-agent.exe
+CLI_BIN   := zima.exe
+
+.PHONY: all clean info strip
+
+all: $(AGENT_BIN) $(CLI_BIN)
+
+$(AGENT_BIN): $(AGENT_OBJS)
+	$(CXX) $(LDFLAGS) $^ -o $@ $(CURL_LIBS) $(SODIUM_LIBS) $(WIN_LIBS)
+
+$(CLI_BIN): $(CLI_OBJS)
+	$(CXX) $(LDFLAGS) $^ -o $@ $(SODIUM_LIBS) $(WIN_LIBS)
+
+# Compile rule. Auto-create the parent directory so objects can live in
+# subdirs that mirror the source tree (build/mingw/agent/, etc.).
+$(BUILDDIR)/%.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Strip symbols for smaller release binaries (optional).
+strip: all
+	$(STRIP) $(AGENT_BIN) $(CLI_BIN)
+
+# Print the resolved configuration. Run `make -f Makefile.mingw info` to
+# verify everything looks right before building.
+info:
+	@echo "MINGW_TRIPLE  = $(MINGW_TRIPLE)"
+	@echo "MINGW_SYSROOT = $(MINGW_SYSROOT)"
+	@echo "CXX           = $(CXX)"
+	@echo
+	@echo "SODIUM_CFLAGS = $(SODIUM_CFLAGS)"
+	@echo "SODIUM_LIBS   = $(SODIUM_LIBS)"
+	@echo
+	@echo "CURL_CFLAGS   = $(CURL_CFLAGS)"
+	@echo "CURL_LIBS     = $(CURL_LIBS)"
+	@echo
+	@echo "Outputs:        $(AGENT_BIN) $(CLI_BIN)"
+
+clean:
+	rm -rf $(BUILDDIR) $(AGENT_BIN) $(CLI_BIN)
