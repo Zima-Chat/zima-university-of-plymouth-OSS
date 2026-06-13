@@ -1,0 +1,531 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		AABB000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA0000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA0000000000000000000020;
+			remoteInfo = "zima-agent";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		AABB000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA0000000000000000000020 /* zima-agent */;
+			targetProxy = AABB000000000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXBuildFile section */
+		/* zima target */
+		AA0001000000000000001000 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000100 /* cli/main.cpp */; };
+		AA0001000000000000001001 /* terminal_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000101 /* cli/terminal_input.cpp */; };
+		AA0001000000000000001002 /* rpc.cpp in Sources (zima) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000111 /* agent/rpc.cpp */; };
+		AA0001000000000000001003 /* session.cpp in Sources (zima) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000113 /* agent/session.cpp */; };
+		AA0001000000000000001004 /* ipc_unix.cpp in Sources (zima) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000130 /* platform/posix/ipc_unix.cpp */; };
+		AA0001000000000000001005 /* libsodium.a in Frameworks (zima) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000200 /* libsodium.a */; };
+		AA0001000000000000001006 /* libcurl.dylib in Frameworks (zima) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000201 /* libcurl.dylib */; };
+		AA0001000000000000001007 /* Security.framework in Frameworks (zima) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000210 /* Security.framework */; };
+		AA0001000000000000001008 /* CoreFoundation.framework in Frameworks (zima) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000211 /* CoreFoundation.framework */; };
+		/* zima-agent target */
+		AA0001000000000000002000 /* main.cpp in Sources (agent) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000110 /* agent/main.cpp */; };
+		AA0001000000000000002001 /* session.cpp in Sources (agent) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000113 /* agent/session.cpp */; };
+		AA0001000000000000002002 /* rpc.cpp in Sources (agent) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000111 /* agent/rpc.cpp */; };
+		AA0001000000000000002003 /* zima_client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000115 /* agent/zima_client.cpp */; };
+		AA0001000000000000002004 /* prompt_scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000117 /* agent/prompt_scanner.cpp */; };
+		AA0001000000000000002005 /* hardening_posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000132 /* platform/posix/hardening_posix.cpp */; };
+		AA0001000000000000002006 /* hardening_macos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000134 /* platform/posix/hardening_macos.cpp */; };
+		AA0001000000000000002007 /* secret_store_keychain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000135 /* platform/posix/secret_store_keychain.cpp */; };
+		AA0001000000000000002008 /* ipc_unix.cpp in Sources (agent) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000130 /* platform/posix/ipc_unix.cpp */; };
+		AA0001000000000000002009 /* libsodium.a in Frameworks (agent) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000200 /* libsodium.a */; };
+		AA0001000000000000002010 /* libcurl.dylib in Frameworks (agent) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000201 /* libcurl.dylib */; };
+		AA0001000000000000002011 /* Security.framework in Frameworks (agent) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000210 /* Security.framework */; };
+		AA0001000000000000002012 /* CoreFoundation.framework in Frameworks (agent) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000211 /* CoreFoundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		/* cli — paths relative to project root */
+		AA0000000000000000000100 /* cli/main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "main.cpp"; path = "cli/main.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000101 /* cli/terminal_input.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "terminal_input.cpp"; path = "cli/terminal_input.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000102 /* cli/terminal_input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "terminal_input.h"; path = "cli/terminal_input.h"; sourceTree = SOURCE_ROOT; };
+		/* agent */
+		AA0000000000000000000110 /* agent/main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "main.cpp"; path = "agent/main.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000111 /* agent/rpc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "rpc.cpp"; path = "agent/rpc.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000112 /* agent/rpc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "rpc.h"; path = "agent/rpc.h"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000113 /* agent/session.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "session.cpp"; path = "agent/session.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000114 /* agent/session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "session.h"; path = "agent/session.h"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000115 /* agent/zima_client.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "zima_client.cpp"; path = "agent/zima_client.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000116 /* agent/zima_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "zima_client.h"; path = "agent/zima_client.h"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000117 /* agent/prompt_scanner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "prompt_scanner.cpp"; path = "agent/prompt_scanner.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000118 /* agent/prompt_scanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "prompt_scanner.h"; path = "agent/prompt_scanner.h"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000119 /* agent/secure_buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "secure_buffer.h"; path = "agent/secure_buffer.h"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000120 /* agent/cbor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "cbor.h"; path = "agent/cbor.h"; sourceTree = SOURCE_ROOT; };
+		/* platform/posix */
+		AA0000000000000000000130 /* platform/posix/ipc_unix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "ipc_unix.cpp"; path = "platform/posix/ipc_unix.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000131 /* platform/posix/ipc_unix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ipc_unix.h"; path = "platform/posix/ipc_unix.h"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000132 /* platform/posix/hardening_posix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "hardening_posix.cpp"; path = "platform/posix/hardening_posix.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000133 /* platform/posix/hardening_posix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "hardening_posix.h"; path = "platform/posix/hardening_posix.h"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000134 /* platform/posix/hardening_macos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "hardening_macos.cpp"; path = "platform/posix/hardening_macos.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000135 /* platform/posix/secret_store_keychain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "secret_store_keychain.cpp"; path = "platform/posix/secret_store_keychain.cpp"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000136 /* platform/posix/secret_store_keychain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "secret_store_keychain.h"; path = "platform/posix/secret_store_keychain.h"; sourceTree = SOURCE_ROOT; };
+		/* platform top-level */
+		AA0000000000000000000141 /* platform/interfaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "interfaces.h"; path = "platform/interfaces.h"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000142 /* platform/secure_random.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "secure_random.h"; path = "platform/secure_random.h"; sourceTree = SOURCE_ROOT; };
+		/* vendor libs */
+		AA0000000000000000000200 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsodium.a"; path = "vendor/libsodium/lib/libsodium.a"; sourceTree = SOURCE_ROOT; };
+		AA0000000000000000000201 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libcurl.dylib"; path = "vendor/curl/lib/libcurl.dylib"; sourceTree = SOURCE_ROOT; };
+		/* system frameworks */
+		AA0000000000000000000210 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AA0000000000000000000211 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		/* products */
+		AA0000000000000000000400 /* zima */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = zima; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0000000000000000000401 /* zima-agent */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "zima-agent"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA0000000000000000000015 /* Frameworks (zima) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0001000000000000001005 /* libsodium.a in Frameworks (zima) */,
+				AA0001000000000000001006 /* libcurl.dylib in Frameworks (zima) */,
+				AA0001000000000000001007 /* Security.framework in Frameworks (zima) */,
+				AA0001000000000000001008 /* CoreFoundation.framework in Frameworks (zima) */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA0000000000000000000025 /* Frameworks (zima-agent) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0001000000000000002009 /* libsodium.a in Frameworks (agent) */,
+				AA0001000000000000002010 /* libcurl.dylib in Frameworks (agent) */,
+				AA0001000000000000002011 /* Security.framework in Frameworks (agent) */,
+				AA0001000000000000002012 /* CoreFoundation.framework in Frameworks (agent) */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA0000000000000000000300 /* root */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000302 /* agent */,
+				AA0000000000000000000303 /* cli */,
+				AA0000000000000000000304 /* platform */,
+				AA0000000000000000000307 /* vendor */,
+				AA0000000000000000000310 /* Frameworks */,
+
+				AA0000000000000000000301 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000301 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000400 /* zima */,
+				AA0000000000000000000401 /* zima-agent */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000302 /* agent */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000110 /* agent/main.cpp */,
+				AA0000000000000000000111 /* agent/rpc.cpp */,
+				AA0000000000000000000112 /* agent/rpc.h */,
+				AA0000000000000000000113 /* agent/session.cpp */,
+				AA0000000000000000000114 /* agent/session.h */,
+				AA0000000000000000000115 /* agent/zima_client.cpp */,
+				AA0000000000000000000116 /* agent/zima_client.h */,
+				AA0000000000000000000117 /* agent/prompt_scanner.cpp */,
+				AA0000000000000000000118 /* agent/prompt_scanner.h */,
+				AA0000000000000000000119 /* agent/secure_buffer.h */,
+				AA0000000000000000000120 /* agent/cbor.h */,
+			);
+			name = agent;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000303 /* cli */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000100 /* cli/main.cpp */,
+				AA0000000000000000000101 /* cli/terminal_input.cpp */,
+				AA0000000000000000000102 /* cli/terminal_input.h */,
+			);
+			name = cli;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000304 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000141 /* platform/interfaces.h */,
+				AA0000000000000000000142 /* platform/secure_random.h */,
+				AA0000000000000000000305 /* posix */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000305 /* posix */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000130 /* platform/posix/ipc_unix.cpp */,
+				AA0000000000000000000131 /* platform/posix/ipc_unix.h */,
+				AA0000000000000000000132 /* platform/posix/hardening_posix.cpp */,
+				AA0000000000000000000133 /* platform/posix/hardening_posix.h */,
+				AA0000000000000000000134 /* platform/posix/hardening_macos.cpp */,
+				AA0000000000000000000135 /* platform/posix/secret_store_keychain.cpp */,
+				AA0000000000000000000136 /* platform/posix/secret_store_keychain.h */,
+			);
+			name = posix;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000307 /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000308 /* libsodium */,
+				AA0000000000000000000309 /* curl */,
+			);
+			name = vendor;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000308 /* libsodium */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000200 /* libsodium.a */,
+			);
+			name = libsodium;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000309 /* curl */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000201 /* libcurl.dylib */,
+			);
+			name = curl;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000310 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000210 /* Security.framework */,
+				AA0000000000000000000211 /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA0000000000000000000010 /* zima */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000000000000000000011 /* Build configuration list for PBXNativeTarget "zima" */;
+			buildPhases = (
+				AA0000000000000000000014 /* Sources */,
+				AA0000000000000000000015 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AABB000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = zima;
+			productName = zima;
+			productReference = AA0000000000000000000400 /* zima */;
+			productType = "com.apple.product-type.tool";
+		};
+		AA0000000000000000000020 /* zima-agent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000000000000000000021 /* Build configuration list for PBXNativeTarget "zima-agent" */;
+			buildPhases = (
+				AA0000000000000000000024 /* Sources */,
+				AA0000000000000000000025 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "zima-agent";
+			productName = "zima-agent";
+			productReference = AA0000000000000000000401 /* zima-agent */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA0000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					AA0000000000000000000010 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					AA0000000000000000000020 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = AA0000000000000000000002 /* Build configuration list for PBXProject "ZimaCLI" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA0000000000000000000300;
+			productRefGroup = AA0000000000000000000301 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA0000000000000000000010 /* zima */,
+				AA0000000000000000000020 /* zima-agent */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA0000000000000000000014 /* Sources (zima) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0001000000000000001000 /* main.cpp in Sources */,
+				AA0001000000000000001001 /* terminal_input.cpp in Sources */,
+				AA0001000000000000001002 /* rpc.cpp in Sources (zima) */,
+				AA0001000000000000001003 /* session.cpp in Sources (zima) */,
+				AA0001000000000000001004 /* ipc_unix.cpp in Sources (zima) */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA0000000000000000000024 /* Sources (zima-agent) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0001000000000000002000 /* main.cpp in Sources (agent) */,
+				AA0001000000000000002001 /* session.cpp in Sources (agent) */,
+				AA0001000000000000002002 /* rpc.cpp in Sources (agent) */,
+				AA0001000000000000002003 /* zima_client.cpp in Sources */,
+				AA0001000000000000002004 /* prompt_scanner.cpp in Sources */,
+				AA0001000000000000002005 /* hardening_posix.cpp in Sources */,
+				AA0001000000000000002006 /* hardening_macos.cpp in Sources */,
+				AA0001000000000000002007 /* secret_store_keychain.cpp in Sources */,
+				AA0001000000000000002008 /* ipc_unix.cpp in Sources (agent) */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA0000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AA0000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AA0000000000000000000012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/vendor/libsodium/include",
+					"$(PROJECT_DIR)/vendor/curl/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/vendor/libsodium/lib",
+					"$(PROJECT_DIR)/vendor/curl/lib",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path",
+					"$(PROJECT_DIR)/vendor/curl/lib",
+					"/usr/local/opt/curl/lib",
+					"/opt/homebrew/opt/curl/lib",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-fstack-protector-strong",
+				);
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = "-Wl,-pie";
+				PRODUCT_NAME = zima;
+			};
+			name = Debug;
+		};
+		AA0000000000000000000013 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/vendor/libsodium/include",
+					"$(PROJECT_DIR)/vendor/curl/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/vendor/libsodium/lib",
+					"$(PROJECT_DIR)/vendor/curl/lib",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path",
+					"$(PROJECT_DIR)/vendor/curl/lib",
+					"/usr/local/opt/curl/lib",
+					"/opt/homebrew/opt/curl/lib",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-fstack-protector-strong",
+					"-O2",
+				);
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = "-Wl,-pie";
+				PRODUCT_NAME = zima;
+			};
+			name = Release;
+		};
+		AA0000000000000000000022 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/vendor/libsodium/include",
+					"$(PROJECT_DIR)/vendor/curl/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/vendor/libsodium/lib",
+					"$(PROJECT_DIR)/vendor/curl/lib",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path",
+					"$(PROJECT_DIR)/vendor/curl/lib",
+					"/usr/local/opt/curl/lib",
+					"/opt/homebrew/opt/curl/lib",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-fstack-protector-strong",
+				);
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = "-Wl,-pie";
+				PRODUCT_NAME = "zima-agent";
+			};
+			name = Debug;
+		};
+		AA0000000000000000000023 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/vendor/libsodium/include",
+					"$(PROJECT_DIR)/vendor/curl/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/vendor/libsodium/lib",
+					"$(PROJECT_DIR)/vendor/curl/lib",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path",
+					"$(PROJECT_DIR)/vendor/curl/lib",
+					"/usr/local/opt/curl/lib",
+					"/opt/homebrew/opt/curl/lib",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-fstack-protector-strong",
+					"-O2",
+				);
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = "-Wl,-pie";
+				PRODUCT_NAME = "zima-agent";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA0000000000000000000002 /* Build configuration list for PBXProject "ZimaCLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000000000000000000003 /* Debug */,
+				AA0000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA0000000000000000000011 /* Build configuration list for PBXNativeTarget "zima" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000000000000000000012 /* Debug */,
+				AA0000000000000000000013 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA0000000000000000000021 /* Build configuration list for PBXNativeTarget "zima-agent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000000000000000000022 /* Debug */,
+				AA0000000000000000000023 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = AA0000000000000000000001 /* Project object */;
+}

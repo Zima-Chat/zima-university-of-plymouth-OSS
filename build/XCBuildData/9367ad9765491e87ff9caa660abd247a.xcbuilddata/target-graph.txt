@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'zima' in project 'ZimaCLI'
+➜ Explicit dependency on target 'zima-agent' in project 'ZimaCLI'
+Target 'zima-agent' in project 'ZimaCLI' (no dependencies)

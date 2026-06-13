@@ -1,0 +1,9 @@
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/main.o
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/session.o
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/rpc.o
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/zima_client.o
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/prompt_scanner.o
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/hardening_posix.o
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/hardening_macos.o
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/secret_store_keychain.o
+/Users/zoe/Desktop/Zima CLI/build/ZimaCLI.build/Release/zima-agent.build/Objects-normal/arm64/ipc_unix.o
