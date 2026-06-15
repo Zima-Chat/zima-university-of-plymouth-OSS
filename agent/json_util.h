@@ -5,6 +5,7 @@
 
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace jsonutil {
 
@@ -136,6 +137,47 @@ inline bool get_string(std::string_view obj, std::string_view key, std::string& 
     }
     if (pos >= obj.size()) return false;
     out = unescape(obj.substr(start, pos - start));
+    return true;
+}
+
+// Extract a JSON array of strings: "key":["a","b",...]. Decodes each element.
+// Returns false if the key is absent or its value is not a string array.
+inline bool get_string_array(std::string_view obj, std::string_view key,
+                             std::vector<std::string>& out) {
+    std::string needle = "\"";
+    needle += key;
+    needle += "\"";
+    size_t pos = obj.find(needle);
+    if (pos == std::string_view::npos) return false;
+    pos += needle.size();
+    auto skip_ws = [&] {
+        while (pos < obj.size() &&
+               (obj[pos] == ' ' || obj[pos] == '\t' || obj[pos] == '\n' || obj[pos] == '\r'))
+            ++pos;
+    };
+    skip_ws();
+    if (pos >= obj.size() || obj[pos] != ':') return false;
+    ++pos;
+    skip_ws();
+    if (pos >= obj.size() || obj[pos] != '[') return false;
+    ++pos;
+    for (;;) {
+        skip_ws();
+        if (pos >= obj.size()) return false;
+        if (obj[pos] == ']') { ++pos; break; }
+        if (obj[pos] == ',') { ++pos; continue; }
+        if (obj[pos] != '"') return false;          // expect a string element
+        ++pos;
+        size_t start = pos;
+        while (pos < obj.size()) {
+            if (obj[pos] == '\\') { pos += 2; continue; }
+            if (obj[pos] == '"') break;
+            ++pos;
+        }
+        if (pos >= obj.size()) return false;
+        out.push_back(unescape(obj.substr(start, pos - start)));
+        ++pos;                                       // past closing quote
+    }
     return true;
 }
 

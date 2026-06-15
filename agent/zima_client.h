@@ -8,6 +8,8 @@
 #include <functional>
 #include <span>
 #include <string>
+#include <utility>
+#include <vector>
 
 struct CompletionResult {
     std::string content;
@@ -48,10 +50,35 @@ public:
                                CompletionResult& result);
 
 private:
-    // Build the JSON request body (OpenAI-compatible §4.4).
-    static std::string build_request_body(const std::string& prompt,
+    // Build the JSON request body (OpenAI-compatible §4.4) with the given
+    // system prompt prepended.
+    static std::string build_request_body(const std::string& system_prompt,
+                                          const std::string& prompt,
                                           const std::string& model,
                                           bool stream);
+
+    // One non-streaming completion round-trip with an explicit system prompt;
+    // returns the assistant content. Thread-safe (no shared mutable state).
+    static std::string perform_completion(std::span<const std::byte> api_key,
+                                          const std::string& system_prompt,
+                                          const std::string& user_prompt,
+                                          const std::string& model);
+
+    // A role/content message in a multi-turn conversation.
+    using ChatMessage = std::pair<std::string, std::string>; // {role, content}
+
+    // One non-streaming round-trip over a full conversation; returns the
+    // assistant content. Powers the core agent's delegation loop.
+    static std::string perform_chat(std::span<const std::byte> api_key,
+                                    const std::vector<ChatMessage>& messages,
+                                    const std::string& model);
+
+    // Run subtasks as concurrent helper agents (bounded thread pool) and return
+    // their results in task order. Powers the spawn_agents tool.
+    static std::vector<std::string> run_agents_parallel(
+        std::span<const std::byte> api_key,
+        const std::string& model,
+        const std::vector<std::string>& tasks);
 
     // Parse a complete non-streaming response body.
     // Takes only the bytes actually received (not the full pre-allocated buffer).
