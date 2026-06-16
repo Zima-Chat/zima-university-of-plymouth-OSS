@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
   <!-- ── Configurations ── -->
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -12,7 +11,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
   <!-- ── Globals ── -->
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
@@ -21,9 +19,7 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>zima-agent</ProjectName>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-
   <!-- ── Per-config high-level settings ── -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -37,16 +33,13 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-
   <!-- ── Paths ── -->
   <PropertyGroup>
     <VendorDir>$(SolutionDir)vendor\</VendorDir>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
-
   <!-- ── Release ── -->
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -78,7 +71,6 @@
       <OutputFile>$(OutDir)zima-agent.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
-
   <!-- ── Debug ── -->
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -88,7 +80,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BufferSecurityCheck>true</BufferSecurityCheck>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
+      <ControlFlowGuard>false</ControlFlowGuard>
       <SDLCheck>true</SDLCheck>
       <WarningLevel>Level4</WarningLevel>
       <ConformanceMode>true</ConformanceMode>
@@ -96,7 +88,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(VendorDir)libsodium\lib\x64\Debug;$(VendorDir)openssl\lib\x64\Debug;$(VendorDir)curl\lib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(VendorDir)libsodium\lib\x64\Release;$(VendorDir)openssl\lib\x64\Release;$(VendorDir)curl\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libsodium.lib;libcurl.lib;libssl.lib;libcrypto.lib;advapi32.lib;crypt32.lib;bcrypt.lib;ws2_32.lib;iphlpapi.lib;gdi32.lib;userenv.lib;wldap32.lib;normaliz.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -104,7 +96,6 @@
       <OutputFile>$(OutDir)zima-agent.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
-
   <!-- ── Sources ── -->
   <ItemGroup>
     <ClCompile Include="agent\main.cpp" />
@@ -116,7 +107,6 @@
     <ClCompile Include="platform\windows\secret_store_credman.cpp" />
     <ClCompile Include="platform\windows\ipc_pipe.cpp" />
   </ItemGroup>
-
   <ItemGroup>
     <ClInclude Include="agent\secure_buffer.h" />
     <ClInclude Include="agent\cbor.h" />
@@ -129,6 +119,5 @@
     <ClInclude Include="platform\windows\secret_store_credman.h" />
     <ClInclude Include="platform\windows\ipc_pipe.h" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
