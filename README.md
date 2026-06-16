@@ -1,3 +1,6 @@
+# For current edge development see the Windows branch
+
+
 # Zima Coding Assistant
 
 A privacy-first coding assistant that uses the Zima inference API. Ships as a CLI and a local web GUI, both backed by a single long-running agent process that owns all secrets and all outbound network traffic.
