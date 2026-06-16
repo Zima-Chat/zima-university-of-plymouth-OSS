@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/">
+    <file>theme.qss</file>
+    <file>assets/Logo.png</file>
+    <file>assets/AppIcon.png</file>
+  </qresource>
+</RCC>

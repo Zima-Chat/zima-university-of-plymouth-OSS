@@ -1,0 +1,297 @@
+/* ===========================================================================
+   Zima Brand Kit → Qt Style Sheet
+   ---------------------------------------------------------------------------
+   A QSS translation of handoff/. The kit authors color in oklch; QSS speaks
+   sRGB, so the published hex approximations are used and the surface stack is
+   pre-flattened (white mixed into the dark canvas). Dark theme only — Zima has
+   no light variant. Accent is zima-400 (#7dc7ec); on-accent text is black.
+   Buttons use the 4px radius (never pills); the composer uses the pill.
+   =========================================================================== */
+
+/* ---- base / canvas ----
+   No global background: the canvas is painted by the animated MeshBackground
+   behind everything, so most widgets stay transparent and let it show through.
+   Surfaces (sidebar, composer, code panels, menus, dialogs) opt back in below. */
+QWidget {
+    color: #E9E9E9;                       /* fg */
+    font-family: "Segoe UI", "CoFo Sans", sans-serif;
+    font-size: 14px;
+}
+QMainWindow, QDialog { background-color: #1A1A1A; }
+
+QToolTip {
+    background-color: #282828;
+    color: #E9E9E9;
+    border: 1px solid #424242;
+    padding: 4px 6px;
+}
+
+/* ---- sidebar ---- */
+#Sidebar {
+    background-color: #212121;            /* surface-1 */
+    border-right: 1px solid #303030;      /* stroke    */
+}
+#Wordmark {
+    /* font set in code: the shipped GeistPixel-Square logo face (fallback mono) */
+    color: #7DC7EC;                       /* brand accent */
+    background: transparent;
+}
+#Eyebrow, #SectionLabel {
+    color: #858585;                       /* fg-muted */
+    font-family: "Consolas", "CoFo Sans Semi-Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    background: transparent;
+}
+#StatusLabel { color: #A3A3A3; background: transparent; }  /* fg-sub */
+
+/* ---- buttons (ghost) — 4px radius, never pills ---- */
+QPushButton {
+    background-color: #282828;            /* surface-2 */
+    color: #E9E9E9;
+    border: 1px solid #424242;            /* stroke-strong */
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-weight: 600;
+}
+QPushButton:hover  { background-color: #2C2C2C; }
+QPushButton:pressed { background-color: #3A3A3A; }
+QPushButton:disabled { color: #5E5E5E; border-color: #303030; }
+
+/* ---- primary button (dialog actions) — accent fill, black text ---- */
+QPushButton#Primary {
+    background-color: #7DC7EC;            /* zima-400 */
+    color: #000000;                       /* on-accent */
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+}
+QPushButton#Primary:hover  { background-color: #97D3EE; }  /* zima-300 */
+QPushButton#Primary:pressed { background-color: #1F78AA; } /* zima-700 */
+QPushButton#Primary:disabled { background-color: #2C2C2C; color: #5E5E5E; }
+
+/* ---- send button — circular accent with an up arrow ---- */
+QPushButton#SendButton {
+    background-color: #7DC7EC;            /* zima-400 */
+    color: #000000;                       /* on-accent */
+    border: none;
+    border-radius: 17px;                  /* half of 34px → circle */
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0;
+}
+QPushButton#SendButton:hover  { background-color: #97D3EE; }
+QPushButton#SendButton:pressed { background-color: #1F78AA; }
+QPushButton#SendButton:disabled { background-color: #2C2C2C; color: #5E5E5E; }
+
+/* ---- model selector ---- */
+QComboBox {
+    background-color: #282828;
+    color: #E9E9E9;
+    border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+QComboBox:hover { border-color: #5A5A5A; }
+QComboBox::drop-down { border: none; width: 22px; }
+QComboBox::down-arrow { image: none; width: 0; height: 0;
+    border-left: 4px solid transparent; border-right: 4px solid transparent;
+    border-top: 5px solid #858585; margin-right: 8px; }
+QComboBox QAbstractItemView {
+    background-color: #282828;
+    color: #E9E9E9;
+    border: 1px solid #424242;
+    border-radius: 8px;
+    outline: none;
+    selection-background-color: #16212A;  /* surface-tint */
+    selection-color: #7DC7EC;
+    padding: 4px;
+}
+
+/* ---- composer (the pill frame + embedded editor) ---- */
+#Composer {
+    background-color: #2C2C2C;            /* surface-3 */
+    border: 1px solid #424242;
+    border-radius: 20px;
+}
+#ComposerEdit {
+    background: transparent;
+    border: none;
+    color: #E9E9E9;
+    selection-background-color: #16212A;
+    selection-color: #E9E9E9;
+}
+
+/* ---- folder selector above the composer ---- */
+#FolderButton {
+    background: transparent;
+    border: none;
+    color: #A3A3A3;
+    text-align: left;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+#FolderButton:hover { background-color: #282828; color: #E9E9E9; }
+
+/* ---- model selector beside the folder button (transparent, matching) ---- */
+QComboBox#ModelSelect {
+    background: transparent;
+    border: none;
+    color: #A3A3A3;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+QComboBox#ModelSelect:hover { background-color: #282828; color: #E9E9E9; }
+QComboBox#ModelSelect::drop-down { border: none; width: 18px; }
+QComboBox#ModelSelect::down-arrow {
+    image: none; width: 0; height: 0;
+    border-left: 4px solid transparent; border-right: 4px solid transparent;
+    border-top: 5px solid #858585; margin-right: 6px;
+}
+QComboBox#ModelSelect QAbstractItemView {
+    background-color: #282828;
+    color: #E9E9E9;
+    border: 1px solid #424242;
+    border-radius: 8px;
+    outline: none;
+    selection-background-color: #16212A;
+    selection-color: #7DC7EC;
+    padding: 4px;
+}
+
+/* ---- top bar + hamburger ---- */
+#TopBar { background: transparent; border-bottom: 1px solid #262626; }
+#Hamburger {
+    background: transparent; border: none; color: #E9E9E9;
+    font-size: 18px; border-radius: 8px;
+}
+#Hamburger:hover { background-color: #282828; }
+#Hamburger:pressed { background-color: #3A3A3A; }
+#TopButton {
+    background: transparent; border: none; color: #A3A3A3;
+    padding: 5px 10px; border-radius: 6px;
+}
+#TopButton:hover { background-color: #282828; color: #E9E9E9; }
+#TopButton:disabled { color: #4A4A4A; }
+
+/* ---- left drawer + scrim ---- */
+#Drawer { background-color: #161616; border-right: 1px solid #303030; }
+#Scrim { background-color: rgba(0, 0, 0, 0.45); border: none; }
+#DrawerPrimary {
+    background-color: #7DC7EC; color: #000000; border: none;
+    border-radius: 6px; padding: 9px; font-weight: 700; text-align: left;
+}
+#DrawerPrimary:hover { background-color: #97D3EE; }
+#DrawerPrimary:pressed { background-color: #1F78AA; }
+
+/* ---- transcript scroll area (transparent so the mesh shows through) ---- */
+#Transcript, #TranscriptInner, #TranscriptViewport { background: transparent; border: none; }
+
+/* ---- message roles ---- */
+#RoleUser, #RoleAssistant, #RoleSystem {
+    font-family: "Consolas", "CoFo Sans Semi-Mono", monospace;
+    font-size: 11px;
+    font-weight: 700;
+    background: transparent;
+}
+#RoleUser      { color: #E9E9E9; }
+#RoleAssistant { color: #7DC7EC; }        /* accent */
+#RoleSystem    { color: #858585; }        /* muted  */
+
+#Prose { color: #E9E9E9; background: transparent; }
+#ProseSystem { color: #A3A3A3; background: transparent; }
+#Thinking { color: #7DC7EC; background: transparent; font-style: italic; }
+
+/* Markdown message body (transparent so the mesh shows through) */
+#MsgBody, #MsgBodySystem {
+    background: transparent;
+    border: none;
+    selection-background-color: #16212A;
+    selection-color: #E9E9E9;
+}
+#MsgBody { color: #E9E9E9; }
+#MsgBodySystem { color: #A3A3A3; }
+
+/* ---- code panel (window-dot chrome + cool-gray mono body) ---- */
+#CodePanel {
+    background-color: #2C2C2C;            /* surface-3 */
+    border: 1px solid #424242;           /* stroke-strong */
+    border-radius: 8px;
+}
+#CodeHeader { background: transparent; }
+#CodeBody {
+    background-color: #2C2C2C;
+    color: #7E8C9C;                       /* fg-dim (cool gray) */
+    font-family: "Consolas", "CoFo Sans Mono", monospace;
+    font-size: 13px;
+    border: none;
+    selection-background-color: #1E3A4A;
+    selection-color: #E9E9E9;
+}
+
+/* ---- scrollbars (thin, dark) ---- */
+QScrollBar:vertical { background: transparent; width: 10px; margin: 2px; }
+QScrollBar::handle:vertical { background: #3A3A3A; border-radius: 4px; min-height: 28px; }
+QScrollBar::handle:vertical:hover { background: #4A4A4A; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
+QScrollBar:horizontal { background: transparent; height: 10px; margin: 2px; }
+QScrollBar::handle:horizontal { background: #3A3A3A; border-radius: 4px; min-width: 28px; }
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { width: 0; }
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal { background: transparent; }
+
+/* ---- conversation history ---- */
+#HistoryList {
+    background-color: #1E1E1E;
+    border: 1px solid #303030;
+    border-radius: 8px;
+    color: #C9C9C9;
+    outline: none;
+    padding: 4px;
+}
+#HistoryList::item { padding: 5px 6px; border-radius: 4px; }
+#HistoryList::item:hover { background-color: #262626; }
+#HistoryList::item:selected { background-color: #16212A; color: #7DC7EC; }
+
+/* ---- workspace file tree ---- */
+#FileTree {
+    background-color: #1E1E1E;
+    border: 1px solid #303030;
+    border-radius: 8px;
+    color: #C9C9C9;
+    outline: none;
+    padding: 4px;
+}
+#FileTree::item { padding: 2px 2px; border-radius: 4px; }
+#FileTree::item:hover { background-color: #262626; }
+#FileTree::item:selected { background-color: #16212A; color: #7DC7EC; }
+
+/* ---- right-hand editor / diff panel ---- */
+#EditorPanel { background-color: #161616; border-left: 1px solid #303030; }
+#EditorHeader { background-color: #1A1A1A; border-bottom: 1px solid #262626; }
+#EditorTitle { color: #E9E9E9; font-family: "Consolas","CoFo Sans Semi-Mono",monospace; font-size: 12px; }
+#EditorClose {
+    background: transparent; border: none; color: #A3A3A3;
+    font-size: 14px; border-radius: 6px;
+}
+#EditorClose:hover { background-color: #282828; color: #E9E9E9; }
+#EditorView {
+    background-color: #161616;
+    border: none;
+    color: #9AB8CC;
+    selection-background-color: #1E3A4A;
+    selection-color: #E9E9E9;
+}
+QSplitter#MainSplitter::handle { background-color: #262626; }
+
+/* ---- API-key dialog ---- */
+QDialog { background-color: #1A1A1A; }
+QLineEdit {
+    background-color: #2C2C2C;
+    color: #E9E9E9;
+    border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 8px 10px;
+    selection-background-color: #16212A;
+}
+QLineEdit:focus { border-color: #3993C6; }
