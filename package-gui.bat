@@ -35,6 +35,20 @@ copy /Y "%BUILD%\zima-gui-qt.exe" "%STAGE%\Zima.exe" >nul
 "%QT%\bin\windeployqt.exe" --release --no-translations --compiler-runtime "%STAGE%\Zima.exe" >nul
 for %%D in (libstdc++-6.dll libgcc_s_seh-1.dll libwinpthread-1.dll) do if not exist "%STAGE%\%%D" copy /Y "%MINGW%\%%D" "%STAGE%\" >nul
 
+echo === Build + bundle agent and CLI (MSVC Debug) ===
+set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+set "MSBUILD="
+if exist "%VSWHERE%" for /f "usebackq tokens=*" %%i in (`"%VSWHERE%" -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe`) do set "MSBUILD=%%i"
+if defined MSBUILD (
+  "%MSBUILD%" "%ROOT%Zima CLI.sln" /p:Configuration=Debug /p:Platform=x64 /m /nologo /v:minimal
+  if errorlevel 1 echo   WARNING: agent/CLI build failed - bundling existing binaries if present.
+) else (
+  echo   MSBuild not found - bundling existing bin\Debug binaries if present.
+)
+for %%E in (zima-agent.exe zima-cli.exe) do (
+  if exist "%ROOT%bin\Debug\%%E" ( copy /Y "%ROOT%bin\Debug\%%E" "%STAGE%\" >nul & echo   bundled %%E ) else ( echo   WARNING: %%E not found in bin\Debug )
+)
+
 echo === Portable ZIP ===
 if exist "%DIST%\Zima-win64.zip" del "%DIST%\Zima-win64.zip"
 "%SZ%\7z.exe" a -tzip "%DIST%\Zima-win64.zip" "%STAGE%" >nul

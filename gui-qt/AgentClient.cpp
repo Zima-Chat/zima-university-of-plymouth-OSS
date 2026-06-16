@@ -47,44 +47,43 @@ AgentClient::~AgentClient() {
     delete client_;
 }
 
+// One full connect + authenticate attempt. Returns true and sets client_ on
+// success; leaves client_ null on any failure (pipe down, token not yet written,
+// auth rejected) so the caller can retry while the agent finishes starting.
+bool AgentClient::tryConnect() {
+    WindowsIpcClient* c = nullptr;
+    try {
+        c = new WindowsIpcClient(agent_socket_path());
+        SecureBuffer tok = load_session_token();
+        c->send_frame(msg_authenticate(tok.span()));
+        auto reply = c->recv_frame();
+        if (frame_type(reply) != MsgType::AuthOk) { delete c; return false; }
+        c->enable_encryption(derive_ipc_key(tok.span()));
+    } catch (...) {
+        delete c;
+        return false;
+    }
+    client_ = c;
+    return true;
+}
+
 bool AgentClient::ensure() {
     if (client_) return true;
-    const std::string pipe = agent_socket_path();
-    for (int attempt = 0; attempt < 2 && !client_; ++attempt) {
-        try {
-            client_ = new WindowsIpcClient(pipe);
-        } catch (...) {
-            if (attempt == 0) {
-                spawnAgent();
-                for (int i = 0; i < 30 && !client_; ++i) {
-                    Sleep(100);
-                    try { client_ = new WindowsIpcClient(pipe); } catch (...) {}
-                }
-            }
-        }
+
+    // Already running? Connect straight away.
+    if (tryConnect()) { emit connected(); return true; }
+
+    // Not running (or still booting) — start zima-agent.exe and wait for it to
+    // come up and write its session token, retrying the whole handshake (~6s).
+    spawnAgent();
+    for (int i = 0; i < 60 && !client_; ++i) {
+        Sleep(100);
+        if (tryConnect()) { emit connected(); return true; }
     }
-    if (!client_) {
-        emit disconnected(QStringLiteral(
-            "Cannot reach zima-agent. Is it running alongside the app?"));
-        return false;
-    }
-    try {
-        SecureBuffer tok = load_session_token();
-        client_->send_frame(msg_authenticate(tok.span()));
-        auto reply = client_->recv_frame();
-        if (frame_type(reply) != MsgType::AuthOk) {
-            delete client_; client_ = nullptr;
-            emit disconnected(QStringLiteral("Agent authentication failed."));
-            return false;
-        }
-        client_->enable_encryption(derive_ipc_key(tok.span()));
-    } catch (const std::exception& e) {
-        delete client_; client_ = nullptr;
-        emit disconnected(QString::fromUtf8(e.what()));
-        return false;
-    }
-    emit connected();
-    return true;
+
+    emit disconnected(QStringLiteral(
+        "Cannot reach zima-agent. Make sure zima-agent.exe is alongside the app."));
+    return false;
 }
 
 void AgentClient::sendPrompt(const QString& prompt, const QString& model) {

@@ -41,6 +41,7 @@ signals:
     void loginSucceeded();
 
 private:
-    bool ensure();                         // connect + authenticate if needed
+    bool ensure();                         // connect, starting the agent if needed
+    bool tryConnect();                     // one connect + authenticate attempt
     WindowsIpcClient* client_ = nullptr;
 };
