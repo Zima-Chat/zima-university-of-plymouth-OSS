@@ -19,7 +19,6 @@ channel and never see the key or open a socket themselves.
 | **Desktop GUI** | `gui-qt/` | Qt 6 chat app and **agentic coding assistant** — workspace file access, diffs, shell, local memory. Talks to the same agent. |
 | **Platform** | `platform/` | OS-specific IPC, process hardening, and secret-store backends (Windows Credential Manager / macOS Keychain / libsecret). |
 | **Vendored deps** | `vendor/` | libsodium, OpenSSL and curl as git **submodules** under `vendor/src/`, plus `build-deps.ps1` which builds them as static libs. |
-| **Brand kit** | `handoff/` | Colors, type and motion tokens (the GUI's theme is derived from these). |
 
 > `gui/` is an earlier native-Win32 prototype that has been superseded by `gui-qt/`.
 
