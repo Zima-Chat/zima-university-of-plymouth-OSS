@@ -20,8 +20,6 @@ channel and never see the key or open a socket themselves.
 | **Platform** | `platform/` | OS-specific IPC, process hardening, and secret-store backends (Windows Credential Manager / macOS Keychain / libsecret). |
 | **Vendored deps** | `vendor/` | libsodium, OpenSSL and curl as git **submodules** under `vendor/src/`, plus `build-deps.ps1` which builds them as static libs. |
 
-> `gui/` is an earlier native-Win32 prototype that has been superseded by `gui-qt/`.
-
 ### Security model (in brief)
 
 - The agent stores the API key in a locked buffer, loads it from the OS secret
